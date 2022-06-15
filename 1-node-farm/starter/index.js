@@ -28,4 +28,13 @@ const dataObject = JSON.parse(data);
 // Server
 const server = http.createServer((req, res) => {
   const pathName = req.url;
+
+  // Overview page
+  if (pathName === "/" || pathName === "/overview") {
+    res.end(tempOverview);
+  }
+});
+
+server.listen(8000, "127.0.0.1", () => {
+  console.log("Listening to requests on port 8000");
 });
