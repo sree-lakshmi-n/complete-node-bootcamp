@@ -3,6 +3,8 @@
 
 const fs = require("fs");
 const http = require("http");
+const url = require("url"); // to implement routing
+// url module helps parse URL parameters and values into a nicely-formatted object
 
 /////////////////////////////////////
 // FILE
@@ -42,8 +44,20 @@ const http = require("http");
 
 // SERVER
 const server = http.createServer((req, res) => {
-  console.log(req);
-  res.end("Hello from the Server");
+  const pathname = req.url;
+  // routing
+  if (pathname === "/overview" || pathname === "/") res.end("This is overview");
+  else if (pathname === "/product") res.end("This is the product");
+  else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+      "my-own-header": "hello world",
+    });
+    res.end("<h1>Page not found!</h1>");
+    // 404 page -> http status code
+    /* Since we're sending back a response, we can add status code to the response. There're multiple ways to do that. */
+    // an HTTP header is basically a piece of information about the response that we are sending back.
+  }
 });
 server.listen(8000, "127.0.0.1", () => {
   console.log("Listening to requests on port 8000");
