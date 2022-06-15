@@ -48,6 +48,26 @@ const server = http.createServer((req, res) => {
   // routing
   if (pathname === "/overview" || pathname === "/") res.end("This is overview");
   else if (pathname === "/product") res.end("This is the product");
+  else if (pathname === "/api") {
+    fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
+      const productData = JSON.parse(data);
+      // console.log(productData);
+      res.writeHead(200, { "Content-type": "application/json" });
+      res.end(data);
+    });
+    // res.end("api");
+  }
+  // res.end() needs to a string as a parameter, not objects.
+  // data is a string that we then transformed to object using JSON.parse. Hence, send data itself as parameter to res.end() and not productData.
+
+  // Relative paths aren't ideal in every case. If we run at a diff directory, then ./ would mean that directory and hence this path would be faulty.
+  // Better way:
+  //All Node.js scripts get access to a variable called dirname, and that variable always translates to the directory in which the script that we're currently executing is located.
+  // './' is where the script is running and __dirname is where the current file is located.
+  // It's always a best practice to use dirname variable.
+  // An exception is when requiring modules.
+  // eg. const url = require('url');
+  // In here, './' represents the current working directory and not the place where we're executing the script from.
   else {
     res.writeHead(404, {
       "Content-type": "text/html",
@@ -62,3 +82,5 @@ const server = http.createServer((req, res) => {
 server.listen(8000, "127.0.0.1", () => {
   console.log("Listening to requests on port 8000");
 });
+
+// Building a simple API
