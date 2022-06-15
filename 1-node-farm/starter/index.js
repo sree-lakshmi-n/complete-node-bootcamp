@@ -7,3 +7,19 @@ const url = require("url");
 // Since templates will always be the same, you can actually read them to memory right in the beginning when we start the application.
 
 // And then, when necessary, we replace the contents in there. There's no need to read the templates each time there is a request.
+
+const tempOverview = fs.readFileSync(
+  `${__dirname}/templates/template-overview.html`,
+  "utf-8"
+);
+const tempProduct = fs.readFileSync(
+  `${__dirname}/templates/template-product.html`,
+  "utf-8"
+);
+const tempCard = fs.readFileSync(
+  `${__dirname}/templates/template-card.html`,
+  "utf-8"
+);
+
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObject = JSON.parse(data);
