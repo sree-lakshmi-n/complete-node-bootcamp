@@ -21,5 +21,11 @@ const tempCard = fs.readFileSync(
   "utf-8"
 );
 
+// Read data file
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
+
+// Server
+const server = http.createServer((req, res) => {
+  const pathName = req.url;
+});
