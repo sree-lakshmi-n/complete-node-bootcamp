@@ -1,3 +1,5 @@
+<!----------------------------------------------------------------------->
+<!----------------------------------------------------------------------->
 <!-- The number of cards in overview depends on the no. of cards in json file.
 Imagine we have 10 products in the json.
 Then we need 10 of these cards.
@@ -5,3 +7,25 @@ But imagine that we only have one or two.
 Well then, we do not want all the 10 cards but only two.
 
 We do that by creating a template with just one card here and then including one of the templates we have in template-product for each of the cards we want. -->
+<!----------------------------------------------------------------------->
+<!----------------------------------------------------------------------->
+<figure class="card">
+  <div class="card__emoji">🌽🌽</div>
+  <div class="card__title-box">
+    <h2 class="card__title">Sweet Corncobs</h2>
+  </div>
+
+  <div class="card__details">
+    <div class="card__detail-box">
+      <h6 class="card__detail">2 🌽 per 📦</h6>
+    </div>
+
+    <div class="card__detail-box">
+      <h6 class="card__detail card__detail--price">2.00€</h6>
+    </div>
+  </div>
+
+  <a class="card__link" href="#">
+    <span>Detail <i class="emoji-right">👉</i></span>
+  </a>
+</figure>
