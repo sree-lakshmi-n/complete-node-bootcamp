@@ -48,8 +48,11 @@ const dataObject = JSON.parse(data);
 const server = http.createServer((req, res) => {
   const pathname = req.url;
   // routing
+  // OVERVIEW PAGE
   if (pathname === "/overview" || pathname === "/") res.end("This is overview");
+  // PRODUCT PAGE
   else if (pathname === "/product") res.end("This is the product");
+  //  API
   else if (pathname === "/api") {
     fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
       res.writeHead(200, { "Content-type": "application/json" });
@@ -75,6 +78,8 @@ const server = http.createServer((req, res) => {
   // So, we have the top level code to read the file once in the beginning. The file read is performed synchronously. It would block the event loop, but since it is top level code, the read file is executed only once.
   // The code when the user hits './api' route is the one that gets executed again and again and it fetches the data from the already read file. This will be performed asynchronously.
   ////////////////////////////////////////////////////////////////////
+
+  // NOT FOUND
   else {
     res.writeHead(404, {
       "Content-type": "text/html",
