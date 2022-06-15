@@ -7,6 +7,11 @@ const url = require("url");
 // Since templates will always be the same, you can actually read them to memory right in the beginning when we start the application.
 
 // And then, when necessary, we replace the contents in there. There's no need to read the templates each time there is a request.
+/////////////////////////////////////////////////////////////////////////
+
+// To replace placeholder with actual cards.
+// In dataObject, we have an array of all the objects that are in data.JSON.
+//  We have to loop through this array, and for each of them, replace the placeholders in the template with the actual data from the current product.
 
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
@@ -34,6 +39,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
+
+    const cardsHtml = dataObject.map((el) => replaceTemplate(tempCard, el));
+
     res.end(tempOverview);
   }
 });
