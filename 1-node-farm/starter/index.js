@@ -43,6 +43,8 @@ const url = require("url"); // to implement routing
 /////////////////////////////////////
 
 // SERVER
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObject = JSON.parse(data);
 const server = http.createServer((req, res) => {
   const pathname = req.url;
   // routing
@@ -50,13 +52,12 @@ const server = http.createServer((req, res) => {
   else if (pathname === "/product") res.end("This is the product");
   else if (pathname === "/api") {
     fs.readFile(`${__dirname}/dev-data/data.json`, "utf-8", (err, data) => {
-      const productData = JSON.parse(data);
-      // console.log(productData);
       res.writeHead(200, { "Content-type": "application/json" });
       res.end(data);
     });
     // res.end("api");
   }
+  //////////////////////////////////////////////////////////////////
   // res.end() needs to a string as a parameter, not objects.
   // data is a string that we then transformed to object using JSON.parse. Hence, send data itself as parameter to res.end() and not productData.
 
@@ -68,6 +69,12 @@ const server = http.createServer((req, res) => {
   // An exception is when requiring modules.
   // eg. const url = require('url');
   // In here, './' represents the current working directory and not the place where we're executing the script from.
+
+  // This method of reading data everytime when user hits '/api' route is not efficient.
+  // Instead, just read the file once in the beginning, and then each time someone hits this route, simply send back the data without having to read it each time that a user requested.
+  // So, we have the top level code to read the file once in the beginning. The file read is performed synchronously. It would block the event loop, but since it is top level code, the read file is executed only once.
+  // The code when the user hits './api' route is the one that gets executed again and again and it fetches the data from the already read file. This will be performed asynchronously.
+  ////////////////////////////////////////////////////////////////////
   else {
     res.writeHead(404, {
       "Content-type": "text/html",
