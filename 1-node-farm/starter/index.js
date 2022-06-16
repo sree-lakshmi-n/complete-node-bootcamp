@@ -13,6 +13,12 @@ const url = require("url");
 // In dataObject, we have an array of all the objects that are in data.JSON.
 //  We have to loop through this array, and for each of them, replace the placeholders in the template with the actual data from the current product.
 
+// function to replace template
+const replaceTemplate = (temp, product) => {
+  temp.replace("{%PRODUCT_NAME%}", product.productName);
+};
+
+// Read templates
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
   "utf-8"
