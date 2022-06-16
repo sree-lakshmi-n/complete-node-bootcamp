@@ -49,7 +49,8 @@ const dataObject = JSON.parse(data);
 // Server
 const server = http.createServer((req, res) => {
   const pathName = req.url;
-
+  console.log(pathName);
+  console.log(url.parse(pathName, true));
   // Overview page
   if (pathName === "/" || pathName === "/overview") {
     res.writeHead(200, {
@@ -61,6 +62,13 @@ const server = http.createServer((req, res) => {
       .join("");
     const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
     res.end(output);
+  }
+  // Not Found
+  else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+    });
+    res.end("<h1>Page not found!</h1>");
   }
 });
 
