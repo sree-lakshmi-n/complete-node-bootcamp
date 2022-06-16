@@ -1,5 +1,5 @@
-// function to replace template
-const replaceTemplate = (temp, product) => {
+// exporting function to replace template
+module.exports = (temp, product) => {
   let output = temp.replace(/{%PRODUCT_NAME%}/g, product.productName);
   output = output.replace(/{%IMAGE%}/g, product.image);
   output = output.replace(/{%PRICE%}/g, product.price);
