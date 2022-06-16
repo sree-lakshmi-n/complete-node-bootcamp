@@ -15,7 +15,17 @@ const url = require("url");
 
 // function to replace template
 const replaceTemplate = (temp, product) => {
-  temp.replace("{%PRODUCT_NAME%}", product.productName);
+  let output = temp.replace(/{%PRODUCT_NAME%}/g, product.productName);
+  output = output.replace(/{%IMAGE%}/g, product.image);
+  output = output.replace(/{%PRICE%}/g, product.price);
+  output = output.replace(/{%FROM%}/g, product.from);
+  output = output.replace(/{%NUTRIENTS%}/g, product.nutrients);
+  output = output.replace(/{%QUANTITY%}/g, product.quantity);
+  output = output.replace(/{%DESCRIPTION%}/g, product.description);
+  output = output.replace(/{%ID%}/g, product.id);
+  if (product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, "");
+  else output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
+  return output;
 };
 
 // Read templates
@@ -46,9 +56,11 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
     });
 
-    const cardsHtml = dataObject.map((el) => replaceTemplate(tempCard, el));
-
-    res.end(tempOverview);
+    const cardsHtml = dataObject
+      .map((el) => replaceTemplate(tempCard, el))
+      .join("");
+    const output = tempOverview.replace("{%PRODUCT_CARDS%}", cardsHtml);
+    res.end(output);
   }
 });
 
