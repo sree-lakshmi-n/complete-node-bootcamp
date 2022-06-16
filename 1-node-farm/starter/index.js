@@ -35,6 +35,12 @@ const tempCard = fs.readFileSync(
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
 
+// Creating slug
+const slugs = dataObject.map((el) => {
+  return slugify(el.productName, { lower: true });
+});
+console.log(slugs);
+
 // Server
 const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
