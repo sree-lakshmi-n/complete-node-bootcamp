@@ -62,7 +62,8 @@ const server = http.createServer((req, res) => {
     res.end(output);
   } else if (pathname === "/product") {
     const product = dataObject[query.id];
-    res.end("This is product");
+    const output = replaceTemplate(tempProduct, product);
+    res.end(output);
   }
   // Not Found
   else {
