@@ -1,10 +1,13 @@
+const fs = require("fs");
+const crypto = require("crypto");
+
 setTimeout(() => {
   console.log("Timer 1 finished");
 }, 0);
 setImmediate(() => {
   console.log("Immediate 1 finished");
 });
-const fs = require("fs");
+
 fs.readFile("text-file.txt", () => {
   console.log("I/O finished");
   setTimeout(() => {
@@ -15,6 +18,10 @@ fs.readFile("text-file.txt", () => {
   }, 3000);
   setImmediate(() => {
     console.log("Immediate 2 finished");
+  });
+
+  crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
+    console.log("Password encrypted");
   });
 });
 console.log("Hello from the top level code");
