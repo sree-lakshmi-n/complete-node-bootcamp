@@ -14,4 +14,5 @@ myEmitter.on("newSale", () => {
 });
 
 // Emitting an event
-myEmitter.emit("newSale");
+// passing arguments
+myEmitter.emit("newSale", 9);
