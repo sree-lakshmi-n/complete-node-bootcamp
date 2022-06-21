@@ -9,3 +9,6 @@ class Calculator {
     return a / b;
   }
 }
+
+// Exporting Calculator class
+module.exports = Calculator;
