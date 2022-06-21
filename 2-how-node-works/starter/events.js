@@ -1,7 +1,15 @@
 const EventEmitter = require("events");
 
+// To use observer pattern in real life, it recommended to use classes that inherit from the EventEmitter class.
+class Sales extends EventEmitter {
+  constructor() {
+    super();
+  }
+}
+
 // Instance of EventEmitter class
-const myEmitter = new EventEmitter();
+// const myEmitter = new EventEmitter();
+const myEmitter = new Sales();
 
 // Listening to an event - Observer Pattern
 myEmitter.on("newSale", () => {
