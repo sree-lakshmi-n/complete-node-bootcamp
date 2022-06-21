@@ -5,7 +5,7 @@ const server = require("http").createServer();
 // listening to requests
 server.on("request", (req, res) => {
   // We've to read a big file
-  // Solution 1
+  // Solution 1 - Not apt for bigger projects/ productions
   fs.readFile("test-file.txt", (err, data) => {
     if (err) console.log(err);
     res.end(data);
