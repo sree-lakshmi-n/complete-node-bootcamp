@@ -2,6 +2,8 @@ const fs = require("fs");
 const crypto = require("crypto");
 
 const start = Date.now();
+// Configuring threadpool size
+process.env.UV_THREADPOOL_SIZE = 2;
 
 setTimeout(() => {
   console.log("Timer 1 finished");
@@ -27,17 +29,24 @@ fs.readFile("text-file.txt", () => {
   });
 
   // Default threadpool size = 4
-  crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
-    console.log(Date.now() - start, "Password encrypted");
-  });
-  crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
-    console.log(Date.now() - start, "Password encrypted");
-  });
-  crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
-    console.log(Date.now() - start, "Password encrypted");
-  });
-  crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
-    console.log(Date.now() - start, "Password encrypted");
-  });
+  //   crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
+  //     console.log(Date.now() - start, "Password encrypted");
+  //   });
+  //   crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
+  //     console.log(Date.now() - start, "Password encrypted");
+  //   });
+  //   crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
+  //     console.log(Date.now() - start, "Password encrypted");
+  //   });
+  //   crypto.pbkdf2("password", "salt", 10000, 1024, "sha512", () => {
+  //     console.log(Date.now() - start, "Password encrypted");
+  //   });
+  // Sync methods - Blocks event loop
+  crypto.pbkdf2Sync("password", "salt", 10000, 1024, "sha512");
+  console.log(Date.now() - start, "Password encrypted");
+  crypto.pbkdf2Sync("password", "salt", 10000, 1024, "sha512");
+  console.log(Date.now() - start, "Password encrypted");
+  crypto.pbkdf2Sync("password", "salt", 10000, 1024, "sha512");
+  console.log(Date.now() - start, "Password encrypted");
 });
 console.log("Hello from the top level code");
