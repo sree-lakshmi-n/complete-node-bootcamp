@@ -2,3 +2,6 @@
 // If arguments array isn't empty, => we're inside a function
 // Since, arguments array contains all the values that are passed into a function
 console.log(arguments);
+
+// 'module' module
+console.log(require("module").wrapper);
