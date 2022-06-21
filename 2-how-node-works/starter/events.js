@@ -13,6 +13,11 @@ myEmitter.on("newSale", () => {
   console.log("Customer name: Jane");
 });
 
+// using passed arguments
+myEmitter.on("newSale", (stock) => {
+  console.log(`There are now ${stock} items left in stock.`);
+});
+
 // Emitting an event
 // passing arguments
 myEmitter.emit("newSale", 9);
