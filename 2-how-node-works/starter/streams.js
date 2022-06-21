@@ -1,2 +1,3 @@
 const fs = require("fs");
-const http = require("http");
+// creating server
+const server = require("http").createServer();
