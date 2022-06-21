@@ -1,4 +1,5 @@
 const EventEmitter = require("events");
+const http = require("http");
 
 // To use observer pattern in real life, it recommended to use classes that inherit from the EventEmitter class.
 class Sales extends EventEmitter {
@@ -29,3 +30,5 @@ myEmitter.on("newSale", (stock) => {
 // Emitting an event
 // passing arguments
 myEmitter.emit("newSale", 9);
+
+/////////////////////////////////////////
