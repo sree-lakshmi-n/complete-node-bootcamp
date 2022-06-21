@@ -12,4 +12,4 @@
 // }
 
 // Exporting Calculator class
-module.exports = Calculator;
+// module.exports = Calculator;
