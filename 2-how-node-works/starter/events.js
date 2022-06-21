@@ -35,3 +35,20 @@ myEmitter.emit("newSale", 9);
 
 // Creating a server
 const server = http.createServer();
+
+// listening to an event
+server.on("request", (req, res) => {
+  console.log("Request received!");
+  console.log(req.url);
+  res.end("Request Received!");
+});
+server.on("request", (req, res) => {
+  console.log("Another Request 😁");
+});
+server.on("close", (req, res) => {
+  console.log("Server Closed");
+});
+
+server.listen(8000, "127.0.0.1", () => {
+  console.log("Waiting for requests...");
+});
