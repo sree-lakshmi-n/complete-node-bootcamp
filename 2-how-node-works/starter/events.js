@@ -32,3 +32,6 @@ myEmitter.on("newSale", (stock) => {
 myEmitter.emit("newSale", 9);
 
 /////////////////////////////////////////
+
+// Creating a server
+const server = http.createServer();
