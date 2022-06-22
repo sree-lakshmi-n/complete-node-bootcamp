@@ -1,4 +1,5 @@
 const fs = require("fs");
+const superagent = require("superagent");
 
 // reading dog.txt file
 fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
