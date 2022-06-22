@@ -5,4 +5,10 @@ const superagent = require("superagent");
 fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
   if (err) console.log(err);
   console.log(`Breed: ${data}`);
+  // Getting a random dog image of the given breed
+  superagent
+    .get(`https://dog.ceo/api/breed/${data}/images/random`)
+    .end((err, res) => {
+      console.log(res.body.message);
+    });
 });
