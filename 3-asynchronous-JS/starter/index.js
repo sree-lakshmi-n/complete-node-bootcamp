@@ -10,5 +10,10 @@ fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
     .get(`https://dog.ceo/api/breed/${data}/images/random`)
     .end((err, res) => {
       console.log(res.body.message);
+
+      // Writing the image link to a file
+      fs.writeFile("dog-image.txt", res.body.message, "utf-8", (err) => {
+        console.log("Random dog image saved to file!");
+      });
     });
 });
