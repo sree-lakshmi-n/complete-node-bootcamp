@@ -15,5 +15,9 @@ const calc1 = new C();
 console.log(calc1.add(3, 4));
 
 // exports
-const calc2 = require("./test-module2");
-console.log(calc2.add(3, 4));
+// const calc2 = require("./test-module2");
+// console.log(calc2.add(3, 4));
+// Using ES6 destructuring
+const { add, multiply, divide } = require("./test-module2");
+// We can also import only the ones we want
+console.log(add(3, 4));
