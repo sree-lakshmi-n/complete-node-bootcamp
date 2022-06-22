@@ -27,7 +27,7 @@ const fileReadPro = (file) => {
   // Promise Constructor
   return new Promise((resolve, reject) => {
     fs.readFile(file, (err, data) => {
-      if (err) reject("Could not find file 😢");
+      if (err) reject("Couldn't find that file 😢");
       resolve(data);
     });
   });
@@ -36,26 +36,29 @@ const fileReadPro = (file) => {
 const writeFilePro = (file, data) => {
   return new Promise((resolve, reject) => {
     fs.writeFile(file, data, (err) => {
-      if (err) reject("Could not find file 😢");
+      if (err) reject("Could not find that file 😢");
       resolve("Success!");
     });
   });
 };
 
-fileReadPro(`${__dirname}/dog.txt`).then((data) => {
-  console.log(`Breed: ${data}`);
-  // Getting a random dog image of the given breed
-  superagent
-    .get(`https://dog.ceo/api/breed/${data}/images/random`)
-    .then((res) => {
-      console.log(res.body.message);
+// Chained Promises
+fileReadPro(`${__dirname}/dog.txt`)
+  .then((data) => {
+    console.log(`Breed: ${data}`);
+    // Getting a random dog image of the given breed
+    return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+  })
+  .then((res) => {
+    console.log(res.body.message);
 
-      // Writing the image link to a file
-      fs.writeFile("dog-image.txt", res.body.message, "utf-8", (err) => {
-        console.log("Random dog image saved to file!");
-      });
-    })
-    .catch((err) => {
-      return console.log(err.message);
-    });
-});
+    // Writing the image link to a file
+    return writeFilePro("dog-image.txt", res.body.message);
+  })
+  .then(() => {
+    console.log("Random dog image saved to file!");
+  })
+  // One catch() for all the promises
+  .catch((err) => {
+    return console.log(err.message);
+  });
