@@ -43,22 +43,39 @@ const writeFilePro = (file, data) => {
 };
 
 // Chained Promises
-fileReadPro(`${__dirname}/dog.txt`)
-  .then((data) => {
-    console.log(`Breed: ${data}`);
-    // Getting a random dog image of the given breed
-    return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
-  })
-  .then((res) => {
-    console.log(res.body.message);
+// fileReadPro(`${__dirname}/dog.txt`)
+//   .then((data) => {
+//     console.log(`Breed: ${data}`);
+//     // Getting a random dog image of the given breed
+//     return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+//   })
+//   .then((res) => {
+//     console.log(res.body.message);
 
-    // Writing the image link to a file
-    return writeFilePro("dog-image.txt", res.body.message);
-  })
-  .then(() => {
+//     // Writing the image link to a file
+//     return writeFilePro("dog-image.txt", res.body.message);
+//   })
+//   .then(() => {
+//     console.log("Random dog image saved to file!");
+//   })
+//   // One catch() for all the promises
+//   .catch((err) => {
+//     return console.log(err.message);
+//   });
+
+// Async/ Await
+const getDogPic = async () => {
+  try {
+    const data = await fileReadPro(`${__dirname}/dogg.txt`);
+    console.log(`Breed: ${data}`);
+    const res = await superagent.get(
+      `https://dog.ceo/api/breed/${data}/images/random`
+    );
+    console.log(res.body.message);
+    await writeFilePro("dog-image.txt", res.body.message);
     console.log("Random dog image saved to file!");
-  })
-  // One catch() for all the promises
-  .catch((err) => {
-    return console.log(err.message);
-  });
+  } catch (err) {
+    console.log(err);
+  }
+};
+getDogPic();
