@@ -54,7 +54,24 @@ app.post('/api/v1/tours', (req, res) => {
     }
   );
 });
-
+app.get('/api/v1/tours/:id', (req, res) => {
+  // To convert string to num, just multiply it with 1
+  const id = req.params.id * 1;
+  const tour = tours.find((el) => el.id === id);
+  // if (id > tours.length)
+  if (!tour) {
+    return res.status(404).json({
+      status: 'Error',
+      message: 'Invalid ID',
+    });
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+});
 const port = 3000;
 app.listen(port, () => {
   console.log('listening to port: ', port);
